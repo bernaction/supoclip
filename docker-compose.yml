@@ -5,6 +5,7 @@ services:
       dockerfile: Dockerfile
       target: development
     container_name: supoclip-frontend
+    command: sh -lc "bunx prisma generate && bun run dev"
     ports:
       - "3000:3000"
     volumes:
@@ -15,6 +16,7 @@ services:
       - NODE_ENV=development
       - NEXT_TELEMETRY_DISABLED=1
       - NEXT_PUBLIC_API_URL=http://localhost:8000
+      - API_INTERNAL_URL=http://backend:8000
       - DATABASE_URL=postgresql://supoclip:supoclip_password@postgres:5432/supoclip
       - BETTER_AUTH_SECRET=${BETTER_AUTH_SECRET:-supoclip_dev_secret_change_in_production}
       - BETTER_AUTH_URL=http://localhost:3000
