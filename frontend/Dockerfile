@@ -78,6 +78,9 @@ COPY --from=builder --chown=nextjs:nodejs /app/node_modules/.prisma ./node_modul
 COPY --from=builder --chown=nextjs:nodejs /app/node_modules/@prisma ./node_modules/@prisma
 COPY --from=builder /app/prisma ./prisma
 
+# Copy the custom generated Prisma client (since output is ../src/generated/prisma)
+COPY --from=builder --chown=nextjs:nodejs /app/src/generated ./src/generated
+
 USER nextjs
 
 EXPOSE 3000

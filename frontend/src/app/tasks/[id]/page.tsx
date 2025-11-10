@@ -75,7 +75,7 @@ export default function TaskPage() {
     if (!params.id) return false;
 
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "/api";
 
       // Fetch task details (including status)
       // Don't wait for session - fetch immediately with user_id if available
@@ -152,7 +152,7 @@ export default function TaskPage() {
     // Only connect to SSE if task is queued or processing
     if (task.status !== "queued" && task.status !== "processing") return;
 
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || "/api";
     const eventSource = new EventSource(`${apiUrl}/tasks/${params.id}/progress`);
 
     console.log("📡 Connected to SSE for real-time progress");
@@ -216,7 +216,7 @@ export default function TaskPage() {
     if (!editedTitle.trim() || !session?.user?.id || !params.id) return;
 
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "/api";
       const response = await fetch(`${apiUrl}/tasks/${params.id}`, {
         method: "PATCH",
         headers: {
@@ -243,7 +243,7 @@ export default function TaskPage() {
 
     setIsDeleting(true);
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "/api";
       const response = await fetch(`${apiUrl}/tasks/${params.id}`, {
         method: "DELETE",
         headers: {
@@ -269,7 +269,7 @@ export default function TaskPage() {
     if (!session?.user?.id || !params.id) return;
 
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "/api";
       const response = await fetch(`${apiUrl}/tasks/${params.id}/clips/${clipId}`, {
         method: "DELETE",
         headers: {
@@ -598,7 +598,7 @@ export default function TaskPage() {
                     {/* Video Player */}
                     <div className="bg-black relative flex-shrink-0 flex items-center justify-center">
                       <DynamicVideoPlayer
-                        src={`http://localhost:8000${clip.video_url}`}
+                        src={`${apiUrl}${clip.video_url}`}
                         poster="/placeholder-video.jpg"
                       />
                     </div>
@@ -640,7 +640,7 @@ export default function TaskPage() {
 
                       <div className="flex gap-2">
                         <Button size="sm" variant="outline" asChild>
-                          <a href={`http://localhost:8000${clip.video_url}`} download={clip.filename}>
+                          <a href={`${apiUrl}${clip.video_url}`} download={clip.filename}>
                             <Download className="w-4 h-4 mr-2" />
                             Download
                           </a>

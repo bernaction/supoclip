@@ -56,7 +56,7 @@ export default function Home() {
   const [latestTask, setLatestTask] = useState<LatestTask | null>(null);
   const [isLoadingLatest, setIsLoadingLatest] = useState(false);
 
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "/api";
 
   // Load available fonts and inject them into the page
   useEffect(() => {
