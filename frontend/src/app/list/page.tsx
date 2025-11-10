@@ -28,7 +28,11 @@ export default function ListPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "/api";
+  const apiUrl =
+  typeof window === "undefined"
+    ? (process.env.API_INTERNAL_URL ?? "http://backend:8000") // SSR / Node
+    : (process.env.NEXT_PUBLIC_API_URL ?? "/api");            // Browser
+
 
   useEffect(() => {
     const fetchTasks = async () => {

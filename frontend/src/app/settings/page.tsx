@@ -31,7 +31,10 @@ export default function SettingsPage() {
   const [success, setSuccess] = useState(false);
   const { data: session, isPending } = useSession();
 
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "/api";
+  const apiUrl =
+   typeof window === "undefined"
+     ? (process.env.API_INTERNAL_URL ?? "http://backend:8000")
+     : (process.env.NEXT_PUBLIC_API_URL ?? "/api");
 
   // Load available fonts from backend and inject them into the page
   useEffect(() => {
