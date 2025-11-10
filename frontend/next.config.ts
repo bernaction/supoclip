@@ -16,7 +16,7 @@ const nextConfig: NextConfig = {
     return [
       { source: "/api/health",              destination: "http://backend:8000/health" },
       { source: "/api/health/:path*",       destination: "http://backend:8000/health/:path*" },
-      { source: "/api/tasks",               destination: "http://backend:8000/tasks" },
+      { source: "/api/tasks",               destination: "http://backend:8000/tasks/" },
       { source: "/api/tasks/:path*",        destination: "http://backend:8000/tasks/:path*" },
       { source: "/api/upload",              destination: "http://backend:8000/upload" },
       { source: "/api/transitions",         destination: "http://backend:8000/transitions" },

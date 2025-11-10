@@ -34,7 +34,7 @@ export default function SettingsPage() {
   const apiUrl =
    typeof window === "undefined"
      ? (process.env.API_INTERNAL_URL ?? "http://backend:8000")
-     : (process.env.NEXT_PUBLIC_API_URL ?? "/api");
+     : "/api";
 
   // Load available fonts from backend and inject them into the page
   useEffect(() => {

@@ -31,7 +31,7 @@ export default function ListPage() {
   const apiUrl =
   typeof window === "undefined"
     ? (process.env.API_INTERNAL_URL ?? "http://backend:8000") // SSR / Node
-    : (process.env.NEXT_PUBLIC_API_URL ?? "/api");            // Browser
+    : "/api";            // Browser
 
 
   useEffect(() => {

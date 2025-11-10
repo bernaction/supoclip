@@ -78,7 +78,7 @@ export default function TaskPage() {
       const apiUrl =
         typeof window === "undefined"
           ? (process.env.API_INTERNAL_URL ?? "http://backend:8000")
-          : (process.env.NEXT_PUBLIC_API_URL ?? "/api");
+          : "/api";
 
       // Fetch task details (including status)
       // Don't wait for session - fetch immediately with user_id if available
@@ -158,7 +158,7 @@ export default function TaskPage() {
     const apiUrl =
       typeof window === "undefined"
         ? (process.env.API_INTERNAL_URL ?? "http://backend:8000")
-        : (process.env.NEXT_PUBLIC_API_URL ?? "/api");
+        : "/api";
     const eventSource = new EventSource(`${apiUrl}/tasks/${params.id}/progress`);
 
     console.log("📡 Connected to SSE for real-time progress");
@@ -225,7 +225,7 @@ export default function TaskPage() {
       const apiUrl =
         typeof window === "undefined"
           ? (process.env.API_INTERNAL_URL ?? "http://backend:8000")
-          : (process.env.NEXT_PUBLIC_API_URL ?? "/api");
+          : "/api";
       const response = await fetch(`${apiUrl}/tasks/${params.id}`, {
         method: "PATCH",
         headers: {
@@ -255,7 +255,7 @@ export default function TaskPage() {
       const apiUrl =
         typeof window === "undefined"
           ? (process.env.API_INTERNAL_URL ?? "http://backend:8000")
-          : (process.env.NEXT_PUBLIC_API_URL ?? "/api");
+          : "/api";
       const response = await fetch(`${apiUrl}/tasks/${params.id}`, {
         method: "DELETE",
         headers: {
@@ -284,7 +284,7 @@ export default function TaskPage() {
       const apiUrl =
         typeof window === "undefined"
           ? (process.env.API_INTERNAL_URL ?? "http://backend:8000")
-          : (process.env.NEXT_PUBLIC_API_URL ?? "/api");
+          : "/api";
       const response = await fetch(`${apiUrl}/tasks/${params.id}/clips/${clipId}`, {
         method: "DELETE",
         headers: {
