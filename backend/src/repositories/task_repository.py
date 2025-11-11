@@ -87,31 +87,30 @@ class TaskRepository:
         progress_message: Optional[str] = None
     ) -> None:
         """Update task status and optional progress."""
-        params = {
-            "task_id": task_id,
-            "status": status,
-            "progress": progress,
-            "progress_message": progress_message
-        }
-
-        # Build dynamic query based on what's provided
-        query_parts = ["UPDATE tasks SET status = :status"]
-
+        params = {"task_id": task_id, "status": status}
+    
+        set_parts = ["status = :status"]
+    
         if progress is not None:
-            query_parts.append("progress = :progress")
-
+            set_parts.append("progress = :progress")
+            params["progress"] = progress
+    
         if progress_message is not None:
-            query_parts.append("progress_message = :progress_message")
-
-        query_parts.append("updated_at = NOW()")
-        query_parts.append("WHERE id = :task_id")
-
-        query = ", ".join(query_parts)
-
+            set_parts.append("progress_message = :progress_message")
+            params["progress_message"] = progress_message
+    
+        set_parts.append("updated_at = NOW()")
+    
+        query = f"UPDATE tasks SET {', '.join(set_parts)} WHERE id = :task_id"
+    
         await db.execute(text(query), params)
         await db.commit()
-        logger.info(f"Updated task {task_id} status to {status}" +
-                   (f" (progress: {progress}%)" if progress else ""))
+        logger.info(
+            f"Updated task {task_id} status to {status}"
+            + (f" (progress: {progress}%)" if progress is not None else "")
+            + (f" msg: {progress_message}" if progress_message is not None else "")
+        )
+
 
     @staticmethod
     async def update_task_clips(db: AsyncSession, task_id: str, clip_ids: List[str]) -> None:
